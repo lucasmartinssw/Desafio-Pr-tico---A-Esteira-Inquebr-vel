@@ -5,7 +5,7 @@
   --text-dim: #94a3b8;
 }
 
-/* regra de erro intencional para teste */
+
 .error { color: red; /* correção: ponto e vírgula adicionado */ }
 
 
