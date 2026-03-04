@@ -2,9 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    # o repositório usa 'master' como branch padrão
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   validar-html:
