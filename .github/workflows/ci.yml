@@ -1,4 +1,4 @@
-name: CI
+name: CD/CI - Esteira Blindada
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
     branches: [ master ]
 
 jobs:
-  validar-html:
-    name: Validar HTML
+  test:
+    name: Test - Validação
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,36 +17,77 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      
       - name: Instalar dependências
         run: |
-          npm install htmlhint --no-save
-      - name: Rodar htmlhint
+          npm install htmlhint stylelint stylelint-config-standard --no-save
+      
+      - name: Validar HTML
         run: |
           npx htmlhint "src/**/*.html"
-
-  validar-css:
-    name: Validar CSS
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Instalar dependências
-        run: |
-          npm install stylelint stylelint-config-standard --no-save
-      - name: Rodar stylelint
+      
+      - name: Validar CSS
         run: |
           npx stylelint "src/css/**/*.css"
 
-  preparar-entrega:
-    name: Preparar entrega
+  build:
+    name: Build - Preparar Artefato
     runs-on: ubuntu-latest
-    needs: [validar-html, validar-css]
+    needs: [test]
     steps:
       - uses: actions/checkout@v3
-      - name: Preparar artefato
+      
+      - name: Debug - Listando estrutura
         run: |
-          mkdir -p dist
-          cp -r src/* dist/
+          echo "=== Estrutura do projeto ==="
+          ls -la
+          echo "=== Conteúdo de src ==="
+          ls -la src/
+      
+      - name: Criar pasta build (erro intencional)
+        run: |
+          mkdir -p build
+          cp -r src/* build/
+          echo "=== Artefato criado em build/ ==="
+          ls -la build/
+      
+      - name: Upload do Artefato
+        uses: actions/upload-artifact@v3
+        with:
+          name: site-build
+          path: build/
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy - GitHub Pages
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download do Artefato
+        uses: actions/download-artifact@v3
+        with:
+          name: site-build
+          path: dist/
+      
+      - name: Verificar pasta dist
+        run: |
+          echo "=== Verificando conteúdo de dist ==="
+          ls -la dist/ || echo "ERRO: pasta dist não encontrada!"
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Upload para GitHub Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: dist/
+      
+      - name: Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
