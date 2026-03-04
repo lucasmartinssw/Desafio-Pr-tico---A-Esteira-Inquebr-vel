@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>10 Lugares Absurdamente Lindos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="hero">
+        <video autoplay muted loop playsinline class="hero-video" poster="assets/images/banff.jpg">
+            <source src="assets/video/hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1>Os 10 Lugares Mais Lindos</h1>
+            <p>Uma jornada visual entre cultura, natureza e experiências únicas</p>
+            <a href="#places" class="scroll-btn">Explorar</a>
+        </div>
+    </header>
+    <section class="parallax-intro">
+        <div class="layer-back" id="parallax-back"></div>
+        <div class="layer-front" id="parallax-front"></div>
+        <div class="parallax-text">
+            <h2>Prepare-se para viajar sem sair do lugar</h2>
+        </div>
+    </section>
+
+    <main id="places"></main>
+
+    <section class="map-section">
+        <div class="map-header">
+            <h2>Localização Global</h2>
+            <p>Veja onde encontrar esses paraísos</p>
+        </div>
+        <div id="map"></div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <h3 class="footer-logo">Experiência Visual</h3>
+
+            <div class="social-links">
+                <a href="#" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Twitter / X">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                    </svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                        </path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                    </svg>
+                </a>
+            </div>
+
+            <section class="contact-section">
+                <div class="contact-container">
+                    <div class="contact-text">
+                        <h2>Fale Conosco</h2>
+                        <p>Quer saber mais sobre algum destino ou sugerir uma nova maravilha? Envie sua mensagem.</p>
+                    </div>
+
+                    <form id="contact-form" class="premium-form">
+                        <div class="form-group">
+                            <input type="text" id="nome" placeholder="Seu Nome" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Seu E-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </section>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Experiência Visual Premium • Todos os direitos reservados. • Lucas Martins</p>
+                <p class="credits">Desenvolvido com paixão por viagens.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

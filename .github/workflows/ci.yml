@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validar-html:
+    name: Validar HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Instalar dependências
+        run: |
+          npm install htmlhint --no-save
+      - name: Rodar htmlhint
+        run: |
+          npx htmlhint "src/**/*.html"
+
+  validar-css:
+    name: Validar CSS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Instalar dependências
+        run: |
+          npm install stylelint stylelint-config-standard --no-save
+      - name: Rodar stylelint
+        run: |
+          npx stylelint "src/css/**/*.css"
+
+  preparar-entrega:
+    name: Preparar entrega
+    runs-on: ubuntu-latest
+    needs: [validar-html, validar-css]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Preparar artefato
+        run: |
+          mkdir -p dist
+          cp -r src/* dist/
