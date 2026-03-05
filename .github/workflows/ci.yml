@@ -44,18 +44,18 @@ jobs:
           echo "=== Conteúdo de src ==="
           ls -la src/
       
-      - name: Criar pasta build (erro intencional)
+      - name: Criar pasta dist (corrigido)
         run: |
-          mkdir -p build
-          cp -r src/* build/
-          echo "=== Artefato criado em build/ ==="
-          ls -la build/
+          mkdir -p dist
+          cp -r src/* dist/
+          echo "=== Artefato criado em dist/ ==="
+          ls -la dist/
       
       - name: Upload do Artefato
         uses: actions/upload-artifact@v4
         with:
           name: site-build
-          path: build/
+          path: dist/
           if-no-files-found: error
 
   deploy:
